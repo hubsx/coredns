@@ -1,4 +1,4 @@
-module gitee.com/hubdev/coredns
+module github.com/hubsx/coredns
 
 go 1.21
 
