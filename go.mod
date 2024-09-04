@@ -2,8 +2,6 @@ module gitee.com/hubdev/coredns
 
 go 1.21
 
-toolchain go1.22.1
-
 require (
 	github.com/caddyserver/caddy/v2 v2.4.1
 	github.com/coreos/etcd v3.3.18+incompatible
