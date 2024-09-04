@@ -11,6 +11,7 @@ import (
 	clientv3 "go.etcd.io/etcd/client/v3"
 	"log"
 	"strings"
+	"time"
 )
 
 // Provider facilitates DNS record manipulation with EasyDNS.
@@ -82,6 +83,7 @@ func (p *Provider) AppendRecords(ctx context.Context, zone string, records []lib
 		if txnResp.Succeeded {
 			appendedRecords = append(appendedRecords, record)
 			fmt.Println("success")
+			time.Sleep(20 * time.Second)
 		} else {
 			log.Printf("Record %s already exists, skipping", record.Name)
 		}
