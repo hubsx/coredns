@@ -14,10 +14,18 @@ func (p *Provider) buildEtcdKey(zone string, record libdns.Record) string {
 }
 
 func (p *Provider) buildEtcdValue(record libdns.Record) (string, error) {
+
 	skyRecord := SkyDNSRecord{
 		Host: record.Value,
 		TTL:  int(record.TTL.Seconds()),
 		// Add any other fields that are necessary for SkyDNS
+	}
+	if record.Type == "TXT" {
+		skyRecord = SkyDNSRecord{
+			Text: record.Value,
+			TTL:  int(record.TTL.Seconds()),
+			// Add any other fields that are necessary for SkyDNS
+		}
 	}
 
 	jsonValue, err := json.Marshal(skyRecord)
