@@ -83,7 +83,7 @@ func (p *Provider) AppendRecords(ctx context.Context, zone string, records []lib
 		if txnResp.Succeeded {
 			appendedRecords = append(appendedRecords, record)
 			fmt.Println("success")
-			time.Sleep(20 * time.Second)
+			time.Sleep(30 * time.Second)
 		} else {
 			log.Printf("Record %s already exists, skipping", record.Name)
 		}
