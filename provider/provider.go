@@ -55,7 +55,7 @@ func (p *Provider) AppendRecords(ctx context.Context, zone string, records []lib
 	}
 
 	var appendedRecords []libdns.Record
-	client, err := connectEtcd([]string{p.APIUrl})
+	client, err := connectEtcd([]string{p.getApiUrl()})
 	if err != nil {
 		return nil, err
 	}
@@ -105,7 +105,7 @@ func (p *Provider) SetRecords(ctx context.Context, zone string, records []libdns
 	zone = strings.TrimSuffix(zone, ".")
 
 	var setRecords []libdns.Record
-	client, err := connectEtcd([]string{p.APIUrl})
+	client, err := connectEtcd([]string{p.getApiUrl()})
 	if err != nil {
 		return nil, err
 	}
@@ -140,18 +140,18 @@ func (p *Provider) DeleteRecords(ctx context.Context, zone string, records []lib
 	zone = strings.TrimSuffix(zone, ".")
 
 	var deletedRecords []libdns.Record
-	_, err := connectEtcd([]string{p.APIUrl})
+	client, err := connectEtcd([]string{p.getApiUrl()})
 	if err != nil {
 		return nil, err
 	}
 	for _, record := range records {
-		//key := p.buildEtcdKey(zone, record)
+		key := p.buildEtcdKey(zone, record)
 
 		// Delete the record from etcd
-		//_, err := client.Delete(ctx, key)
-		//if err != nil {
-		//	return nil, err
-		//}
+		_, err := client.Delete(ctx, key)
+		if err != nil {
+			return nil, err
+		}
 
 		deletedRecords = append(deletedRecords, record)
 	}
@@ -171,5 +171,5 @@ func (p *Provider) getApiUrl() string {
 	if p.APIUrl != "" {
 		return p.APIUrl
 	}
-	return "https://rest.easydns.net"
+	return "http://127.0.0.1:2379"
 }
