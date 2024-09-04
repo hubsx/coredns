@@ -6,6 +6,7 @@ package provider
 
 import (
 	"context"
+	"fmt"
 	"github.com/libdns/libdns"
 	clientv3 "go.etcd.io/etcd/client/v3"
 	"log"
@@ -47,6 +48,10 @@ func (p *Provider) AppendRecords(ctx context.Context, zone string, records []lib
 	log.Println("Append Record(s) to zone:", zone)
 	// Remove trailing dot from zone if present
 	zone = strings.TrimSuffix(zone, ".")
+	fmt.Println("append records")
+	for _, v := range records {
+		fmt.Println(v)
+	}
 
 	var appendedRecords []libdns.Record
 	client, err := connectEtcd([]string{p.APIUrl})
@@ -86,7 +91,11 @@ func (p *Provider) AppendRecords(ctx context.Context, zone string, records []lib
 // It returns the updated records.
 func (p *Provider) SetRecords(ctx context.Context, zone string, records []libdns.Record) ([]libdns.Record, error) {
 	log.Println("Update Record(s) in zone:", zone)
+	fmt.Println("set records")
 
+	for _, v := range records {
+		fmt.Println(v)
+	}
 	// Remove trailing dot from zone if present
 	zone = strings.TrimSuffix(zone, ".")
 
@@ -117,7 +126,11 @@ func (p *Provider) SetRecords(ctx context.Context, zone string, records []libdns
 // DeleteRecords deletes the records from the zone. It returns the records that were deleted.
 func (p *Provider) DeleteRecords(ctx context.Context, zone string, records []libdns.Record) ([]libdns.Record, error) {
 	log.Println("Delete Record(s) from zone:", zone)
+	fmt.Println("delete records")
 
+	for _, v := range records {
+		fmt.Println(v)
+	}
 	// Remove trailing dot from zone if present
 	zone = strings.TrimSuffix(zone, ".")
 
