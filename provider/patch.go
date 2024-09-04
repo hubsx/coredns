@@ -10,6 +10,9 @@ import (
 func (p *Provider) buildEtcdKey(zone string, record libdns.Record) string {
 	// Example: Construct etcd key based on zone and record name
 	// e.g., "/skydns/com/example/www/A"
+	if record.Type == "TXT" {
+		return fmt.Sprintf("%s/%s/%s", p.Prefix, reverseDomain(zone), record.Name)
+	}
 	return fmt.Sprintf("%s/%s/%s/%s", p.Prefix, reverseDomain(zone), record.Name, record.Type)
 }
 
