@@ -62,7 +62,7 @@ func (p *Provider) AppendRecords(ctx context.Context, zone string, records []lib
 	for _, record := range records {
 		key := p.buildEtcdKey(zone, record)
 		value, err := p.buildEtcdValue(record)
-		fmt.Sprintf("use set %s=%s\n", key, value)
+		fmt.Printf("use set %s=%s\n", key, value)
 		if err != nil {
 			return nil, err
 		}
@@ -75,8 +75,8 @@ func (p *Provider) AppendRecords(ctx context.Context, zone string, records []lib
 
 		// Commit the transaction
 		txnResp, err := txn.Commit()
-		fmt.Println(err)
 		if err != nil {
+			fmt.Println(err)
 			return nil, err
 		}
 
