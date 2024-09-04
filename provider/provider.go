@@ -140,7 +140,7 @@ func (p *Provider) DeleteRecords(ctx context.Context, zone string, records []lib
 	zone = strings.TrimSuffix(zone, ".")
 
 	var deletedRecords []libdns.Record
-	client, err := connectEtcd([]string{p.APIUrl})
+	_, err := connectEtcd([]string{p.APIUrl})
 	if err != nil {
 		return nil, err
 	}
