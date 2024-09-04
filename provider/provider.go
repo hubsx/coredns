@@ -145,13 +145,13 @@ func (p *Provider) DeleteRecords(ctx context.Context, zone string, records []lib
 		return nil, err
 	}
 	for _, record := range records {
-		key := p.buildEtcdKey(zone, record)
+		//key := p.buildEtcdKey(zone, record)
 
 		// Delete the record from etcd
-		_, err := client.Delete(ctx, key)
-		if err != nil {
-			return nil, err
-		}
+		//_, err := client.Delete(ctx, key)
+		//if err != nil {
+		//	return nil, err
+		//}
 
 		deletedRecords = append(deletedRecords, record)
 	}
